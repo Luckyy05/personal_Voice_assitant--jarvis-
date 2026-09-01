@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import webbrowser
 from speech import speak
+import musiclibrary
 
 
 recognizer = sr.Recognizer()
@@ -8,6 +9,21 @@ def processcommand(c):
     if"open google" in c.lower():
         speak("opening google")
         webbrowser.open("https://www.google.com")
+    elif"open facebook" in c.lower():
+        speak("opening facebook")
+        webbrowser.open("https://www.facebook.com")
+
+    elif"open youtube" in c.lower():
+        speak("opening Youtube")
+        webbrowser.open("https://www.youtube.com/")
+    elif"open Linkedin" in c.lower():
+        speak("opening Linkedin")
+        webbrowser.open("https://www.linkedin.com")
+    elif c.lower().startswith("play"):
+        speak("yes sir")
+        song = c.lower().split(" ")[1]
+        link = musiclibrary.music[song]
+        webbrowser.open(link)
         
 
 
@@ -22,17 +38,19 @@ if __name__ == "__main__":
         print("recognizing...")
         try:
             with sr.Microphone() as source:
+                r.adjust_for_ambient_noise(source, duration=0.5)# by chatgpt(Calibrate for background noise)
                 print("Listening...")
-                audio = r.listen(source, timeout=4, phrase_time_limit=1)
-            word = r.recognize_google(audio)
-            if(word.lower() == "jarvis"):
+                audio = r.listen(source, timeout=5, phrase_time_limit=3)
+            word = r.recognize_google(audio, language="en-IN")
+            if "jarvis" in word.lower():
                 print("jarvis activated")
-                speak("yes sir, jarvis is activated , what can i do for you ")
+                speak("yes sir")
                 # Listen for command
                 with sr.Microphone() as source:
+                    r.adjust_for_ambient_noise(source, duration=0.5)# by chatgpt(Calibrate for background noise)
                     print("Jarvis Active...")
                     audio = r.listen(source)
-                    command = r.recognize_google(audio)
+                    command = r.recognize_google(audio, language="en-IN")
                     processcommand(command)
                 
 
