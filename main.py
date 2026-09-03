@@ -3,6 +3,7 @@ import webbrowser
 from speech import speak
 import musiclibrary
 from news import get_news
+from geminiai import ask_ai # by using gemini api key we are using function of ai model
 
 recognizer = sr.Recognizer()
 def processcommand(c):
@@ -33,7 +34,17 @@ def processcommand(c):
             for headline in headlines:
                 speak(headline)
 
-            return
+     # If no normal command matches, ask the AI
+    else:
+        speak("Let me think about that")# here it can provide answer to any else question but it will take some time to response as it uses a free tier api key 
+        print("Sending question to AI...")
+
+        answer = ask_ai(c)
+
+        print("Jarvis:", answer)
+        speak(answer)           
+
+        return
 if __name__ == "__main__":
     speak("Initializing Jarvis....")
     while True:
