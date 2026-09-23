@@ -1,167 +1,97 @@
+# Jarvis Voice Assistant
 
-<!-- # 🤖 JARVIS - Personal Voice Assistant
+AI-powered voice assistant that processes natural language commands using Google Gemini, fetches news updates, and controls music playback through voice interaction.
 
-JARVIS is a Python-based personal voice assistant that I am building to learn and implement concepts such as speech recognition, text-to-speech, API integration, automation, and AI.
+## Features
 
-The project is currently under development, and I am continuously adding new features and improving its functionality.
+- **Voice Recognition**: Converts speech to text for command processing
+- **AI Responses**: Integrates Google Gemini API for intelligent conversation
+- **News Updates**: Retrieves and reads latest headlines
+- **Music Control**: Plays songs from your music library via voice commands
+- **Text-to-Speech**: Responds audibly to user queries
 
-## ✨ Features
+## Tech Stack
 
-- 🎤 Voice command recognition
-- 🗣️ Text-to-speech responses
-- 🔔 Wake word detection using "Jarvis"
-- 🌐 Open websites using voice commands
-- 🎵 Play songs from a custom music library
-- 📰 Fetch and speak the latest news headlines
-- 🤖 AI integration
-- ⚙️ Modular Python structure
+- **Python 3.x**
+- **Google Gemini API** - Natural language understanding
+- **SpeechRecognition** - Voice input processing
+- **pyttsx3** - Text-to-speech output
+- **NewsAPI** - Real-time news fetching
 
-## 🧠 How It Works
+## Project Structure
 
-The basic workflow of JARVIS is:
-
-```text
-User Voice
-    ↓
-Speech Recognition
-    ↓
-Wake Word Detection ("Jarvis")
-    ↓
-Command Processing
-    ↓
-Perform Action
-    ↓
-Text-to-Speech Response
 ```
-
-For example:
-
-```text
-User: "Jarvis"
-
-Jarvis: "Yes sir"
-
-User: "Tell me the news"
-
-Jarvis: "Here are the top 3 news headlines..."
-```
-
-## 📁 Project Structure
-
-```text
 personal_Voice_assitant--jarvis-/
-│
-├── main.py             # Main program and command handling
-├── speech.py           # Text-to-speech functionality
-├── news.py             # Fetches latest news using NewsAPI
-├── musiclibrary.py     # Stores songs and their links
-├── geminiai.py         # AI integration
-├── .gitignore          # Files ignored by Git
-└── README.md           # Project documentation
+├── main.py              # Application entry point
+├── speech.py            # Speech recognition and synthesis
+├── geminiai.py          # Gemini API integration
+├── news.py              # News fetching logic
+├── musiclibrary.py      # Music library management
+└── requirements.txt     # Dependencies
 ```
 
-## 🛠️ Technologies Used
+## Setup
 
-- Python
-- SpeechRecognition
-- PyAudio
-- pyttsx3
-- Requests
-- NewsAPI
-- Webbrowser
-- Gemini API
-
-## 🚀 Current Commands
-
-JARVIS currently supports commands such as:
-
-```text
-"Jarvis"
-
-"Open Google"
-"Open YouTube"
-"Open LinkedIn"
-
-"Play <song name>"
-
-"Tell me the news"
-```
-
-More commands will be added as the project develops.
-
-## ⚙️ Installation
-
-Clone the repository:
-
+1. Clone the repository:
 ```bash
-git clone <your-repository-url>
-```
-
-Move into the project directory:
-
-```bash
+git clone https://github.com/Luckyy05/personal_Voice_assitant--jarvis-.git
 cd personal_Voice_assitant--jarvis-
 ```
 
-Create a virtual environment:
-
-```bash
-py -3.13 -m venv .venv
-```
-
-Activate it on Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-Install the required packages:
-
+2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+```
 
-Then run JARVIS:
+3. Configure API keys:
+Create a `.env` file in the project root:
+```
+GEMINI_API_KEY=your_gemini_api_key_here
+NEWS_API_KEY=your_news_api_key_here
+```
 
+4. Run the assistant:
 ```bash
 python main.py
 ```
 
-## 🔐 API Keys
+## Usage
 
-Some features require external API keys, such as the news and AI features.
+Once running, speak commands like:
+- "What's the weather today?"
+- "Tell me the latest news"
+- "Play [song name]"
+- "What is [query]?"
 
-API keys should **never be committed directly to GitHub**.
+The assistant will process your speech, execute the command, and respond verbally.
 
-Store sensitive credentials using environment variables and access them in Python using:
+## Learning Outcomes
 
-```python
-import os
+This project helped me understand:
+- Integrating multiple APIs into a cohesive system
+- Managing asynchronous operations (speech input/output, API calls)
+- Modular code architecture for maintainability
+- Error handling in real-time voice applications
 
-API_KEY = os.getenv("API_KEY_NAME")
-```
+## Future Improvements
 
-## 🗺️ Future Improvements
+- [ ] Add weather integration
+- [ ] Support for calendar/reminders
+- [ ] Multi-language support
+- [ ] Improve response latency
+- [ ] Add conversation context memory
 
-I plan to gradually add:
+## Requirements
 
-- Better command recognition
-- Weather information
-- More system controls
-- Improved wake-word detection
-- AI-powered conversations
-- Better error handling
-- Reminder/task functionality
-- Personal assistant memory
-- More API integrations
+- Python 3.8+
+- Microphone for voice input
+- Internet connection for API access
+- Valid API keys for Gemini and NewsAPI
 
-## 📌 Project Status
+## License
 
-🚧 **Under active development**
+MIT
 
-This is a learning project, so the architecture and features will continue to improve as I learn more about Python, APIs, automation, and AI.
+---
 
-## 👨‍💻 Author
-
-**Lucky**
-
-Computer Science (AI & ML) Student -->
+**Note**: This is a learning project. API keys are required and not included. Response quality depends on internet connection and API availability.
