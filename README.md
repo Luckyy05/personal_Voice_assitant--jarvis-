@@ -118,8 +118,7 @@ Activate it on Windows:
 Install the required packages:
 
 ```bash
-pip install SpeechRecognition PyAudio pyttsx3 requests
-```
+pip install -r requirements.txt
 
 Then run JARVIS:
 
