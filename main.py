@@ -3,10 +3,14 @@ import webbrowser
 from speech import speak
 import musiclibrary
 from news import get_news
-from geminiai import ask_ai # by using gemini api key we are using function of ai model
+from groqai import ask_ai # by using groq api key we are using function of ai model
+import memory 
+from memory import remember, get_memories
+
 
 recognizer = sr.Recognizer()
 def processcommand(c):
+    print("Command received:", c)
     if"open google" in c.lower():
         speak("opening google")
         webbrowser.open("https://www.google.com")
@@ -33,6 +37,26 @@ def processcommand(c):
 
             for headline in headlines:
                 speak(headline)
+
+    elif "remember" in c.lower():
+        memory_text = c.lower().replace("remember","",1).strip()
+
+        remember(memory_text)
+        speak(f"Okay sir, I will remember that {memory_text}")
+
+    elif "what is my" in c.lower():
+        search_text = c.lower().replace("what is my", "", 1).strip()
+
+        memories = get_memories()
+
+        for memory in memories:
+            if search_text in memory.lower():
+                speak(memory)
+                print("Memory found:", memory)
+                return
+
+        speak("Sorry sir, I don't remember that.")
+
 
      # If no normal command matches, ask the AI
     else:
