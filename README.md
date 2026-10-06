@@ -1,30 +1,35 @@
 # Jarvis Voice Assistant
 
-AI-powered voice assistant that processes natural language commands using Google Gemini, fetches news updates, and controls music playback through voice interaction.
+AI-powered voice assistant that processes natural language commands using Groq, stores simple user memories, fetches news updates, and controls music playback through voice interaction.
 
 ## Features
 
-- **Voice Recognition**: Converts speech to text for command processing
-- **AI Responses**: Integrates Google Gemini API for intelligent conversation
-- **News Updates**: Retrieves and reads latest headlines
-- **Music Control**: Plays songs from your music library via voice commands
-- **Text-to-Speech**: Responds audibly to user queries
+* **Voice Recognition**: Converts speech to text for command processing
+* **AI Responses**: Integrates Groq API for intelligent conversation
+* **Memory System**: Stores and retrieves user memories using a local JSON file
+* **News Updates**: Retrieves and reads latest headlines
+* **Music Control**: Plays songs from your music library via voice interaction
+* **Website Control**: Opens websites such as Google, Facebook, YouTube, and LinkedIn
+* **Text-to-Speech**: Responds audibly to user queries
 
 ## Tech Stack
 
-- **Python 3.x**
-- **Google Gemini API** - Natural language understanding
-- **SpeechRecognition** - Voice input processing
-- **pyttsx3** - Text-to-speech output
-- **NewsAPI** - Real-time news fetching
+* **Python 3.x**
+* **Groq API** - Natural language understanding and AI responses
+* **SpeechRecognition** - Voice input processing
+* **pyttsx3** - Text-to-speech output
+* **NewsAPI** - Real-time news fetching
+* **JSON** - Local memory storage
+* **python-dotenv** - Environment variable management
 
 ## Project Structure
 
-```
+```text
 personal_Voice_assitant--jarvis-/
-├── main.py              # Application entry point
-├── speech.py            # Speech recognition and synthesis
-├── geminiai.py          # Gemini API integration
+├── main.py              # Application entry point and command processing
+├── speech.py            # Text-to-speech functionality
+├── groqai.py            # Groq API integration
+├── memory.py            # Memory storage and retrieval
 ├── news.py              # News fetching logic
 ├── musiclibrary.py      # Music library management
 └── requirements.txt     # Dependencies
@@ -33,24 +38,29 @@ personal_Voice_assitant--jarvis-/
 ## Setup
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Luckyy05/personal_Voice_assitant--jarvis-.git
 cd personal_Voice_assitant--jarvis-
 ```
 
 2. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 3. Configure API keys:
+
 Create a `.env` file in the project root:
-```
-GEMINI_API_KEY=your_gemini_api_key_here
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
 NEWS_API_KEY=your_news_api_key_here
 ```
 
 4. Run the assistant:
+
 ```bash
 python main.py
 ```
@@ -58,40 +68,36 @@ python main.py
 ## Usage
 
 Once running, speak commands like:
-- "What's the weather today?"
-- "Tell me the latest news"
-- "Play [song name]"
-- "What is [query]?"
 
-The assistant will process your speech, execute the command, and respond verbally.
+* "What's the weather today?"
+* "Tell me the latest news"
+* "Play [song name]"
+* "Remember my favourite language is Python"
+* "What is my favourite language?"
+* "What is [query]?"
 
-## Learning Outcomes
+The assistant will process the speech, execute the command, access saved memories when required, and respond verbally.
 
-This project helped me understand:
-- Integrating multiple APIs into a cohesive system
-- Managing asynchronous operations (speech input/output, API calls)
-- Modular code architecture for maintainability
-- Error handling in real-time voice applications
+## Memory System
 
-## Future Improvements
+Jarvis can store simple information provided through voice commands.
 
-- [ ] Add weather integration
-- [ ] Support for calendar/reminders
-- [ ] Multi-language support
-- [ ] Improve response latency
-- [ ] Add conversation context memory
+For example:
 
-## Requirements
+```text
+"Remember my favourite language is Python"
+```
 
-- Python 3.8+
-- Microphone for voice input
-- Internet connection for API access
-- Valid API keys for Gemini and NewsAPI
+The information is stored locally in `memory.json`.
 
-## License
+Later, you can ask:
 
-MIT
+```text
+"What is my favourite language?"
+```
 
----
+Jarvis searches the saved memories and returns the matching information.
 
-**Note**: This is a learning project. API keys are required and not included. Response quality depends on internet connection and API availability.
+> `memory.json` is a local file and should not be uploaded to GitHub because it may contain personal information.
+
+## Learning Outco
