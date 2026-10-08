@@ -1,14 +1,21 @@
 import speech_recognition as sr
 import webbrowser
+import memory
+import time
 from speech import speak
 import musiclibrary
 from news import get_news
 from groqai import ask_ai # by using groq api key we are using function of ai model
-import memory 
 from memory import remember, get_memories
-
-
+from weather import get_weather
 recognizer = sr.Recognizer()
+
+recognizer.energy_threshold = 300
+recognizer.dynamic_energy_threshold = True
+recognizer.pause_threshold = 0.8
+recognizer.non_speaking_duration = 0.3
+
+
 def processcommand(c):
     print("Command received:", c)
     if"open google" in c.lower():
@@ -44,6 +51,20 @@ def processcommand(c):
         remember(memory_text)
         speak(f"Okay sir, I will remember that {memory_text}")
 
+    elif "weather" in c.lower():
+        location = c.lower().replace("weather","",1).strip()
+
+        if location:
+            print(f"Fetching weather for {location}...")
+            weather_info = get_weather(location)
+            print("jarvis:",weather_info)
+            speak(weather_info)
+
+        else:
+            print("no location")
+            speak("please tell me a location")
+        
+
     elif "what is my" in c.lower():
         search_text = c.lower().replace("what is my", "", 1).strip()
 
@@ -71,27 +92,33 @@ def processcommand(c):
         return
 if __name__ == "__main__":
     speak("Initializing Jarvis....")
+
+    with sr.Microphone() as source:
+        print("Calibrating microphone...")
+        recognizer.adjust_for_ambient_noise(source, duration=1)
+        print("Calibration complete.")
+
     while True:
         # Listen for the wake word "Jarvis"
         # obtain audio from the microphone
-        r = sr.Recognizer() 
+         
          
         print("recognizing...")
         try:
             with sr.Microphone() as source:
-                r.adjust_for_ambient_noise(source, duration=0.5)# by chatgpt(Calibrate for background noise)
-                print("Listening...")
-                audio = r.listen(source, timeout=5, phrase_time_limit=3)
-            word = r.recognize_google(audio, language="en-IN")# as this recognizer recognize english-US, so we added "en-IN" for tuning and eassy recognition
+                print("listening for jarivs ...")
+                audio = recognizer.listen(source, timeout=5, phrase_time_limit=3)
+            word = recognizer.recognize_google(audio, language="en-IN")# as this recognizer recognize english-US, so we added "en-IN" for tuning and eassy recognition
             if "jarvis" in word.lower():
                 print("jarvis activated")
                 speak("yes sir")
+                time.sleep(0.5)
                 # Listen for command
                 with sr.Microphone() as source:
-                    r.adjust_for_ambient_noise(source, duration=0.5)# by chatgpt(Calibrate for background noise)
                     print("Jarvis Active...")
-                    audio = r.listen(source)
-                    command = r.recognize_google(audio, language="en-IN")# as this recognizer recognize english-US, so we added "en-IN" for tuning and eassy recognition
+                    audio = recognizer.listen(source)
+                    command = recognizer.recognize_google(audio, language="en-IN")# as this recognizer recognize english-US, so we added "en-IN" for tuning and eassy recognition
+                    print("Command received:", command)
                     processcommand(command)
                 
 
