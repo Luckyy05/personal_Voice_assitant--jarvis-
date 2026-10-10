@@ -2,12 +2,14 @@ import speech_recognition as sr
 import webbrowser
 import memory
 import time
+import pywhatkit
 from speech import speak
 import musiclibrary
 from news import get_news
 from groqai import ask_ai # by using groq api key we are using function of ai model
 from memory import remember, get_memories
 from weather import get_weather
+
 recognizer = sr.Recognizer()
 
 recognizer.energy_threshold = 300
@@ -33,9 +35,24 @@ def processcommand(c):
         webbrowser.open("https://www.linkedin.com")
     elif c.lower().startswith("play"):
         speak("yes sir")
-        song = c.lower().split(" ")[1]
-        link = musiclibrary.music[song]
-        webbrowser.open(link)
+        song = c[5:].strip()  # Remove "play " from the beginning
+        if not song:
+            speak("please tell me the song")
+            return
+
+        speak(f"searching for {song}")
+
+        if song in musiclibrary.music:
+            webbrowser.open(musiclibrary.music[song.lower()])
+
+        else:
+            try:
+                pywhatkit.playonyt(song)
+
+            except Exception as error:
+                print("Music playback error:", error)
+                speak("Sorry sir, I couldn't play that song.")
+
     elif "news" in c.lower():
             headlines = get_news()
 
